@@ -1,0 +1,6 @@
+br\com\livraria\model\Genero.class
+br\com\livraria\connectionFactory\testes\Teste.class
+br\com\livraria\model\Livro.class
+br\com\livraria\dao\GeneroDao.class
+br\com\livraria\model\Autor.class
+br\com\livraria\connectionFactory\ConnectionFactory.class

@@ -17,8 +17,7 @@ public class Genero {
     
     private String nome;
 
-    public Genero(int id, String nome) {
-        this.id = id;
+    public Genero( String nome) {
         this.nome = nome;
     }
 
