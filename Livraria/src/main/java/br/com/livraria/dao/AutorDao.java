@@ -30,4 +30,11 @@ public class AutorDao {
         return (Autor) em.createNativeQuery(sql, Autor.class).setParameter(1, nome).getSingleResult();
 
     }
+    
+    public void deletarAutor(int id){
+        em.getTransaction().begin();
+        Autor autor = em.find(Autor.class,id);
+        em.remove(autor);
+        em.getTransaction().commit();
+    }
 }

@@ -9,6 +9,7 @@ import br.com.livraria.dao.AutorDao;
 import br.com.livraria.model.Autor;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,17 +25,17 @@ public class TelaAutor extends javax.swing.JInternalFrame {
         initComponents();
         listarJtable();
     }
-    
-    private void listarJtable(){
-        EntityManager em =  new ConnectionFactory().getEntityManager();
+
+    private void listarJtable() {
+        EntityManager em = new ConnectionFactory().getEntityManager();
         DefaultTableModel modelo = (DefaultTableModel) tblAutores.getModel();
         modelo.setNumRows(0);
         AutorDao autorDao = new AutorDao(em);
-        ArrayList<Autor> autores  = autorDao.listarAutores();
-        
-        for(Autor autor: autores){
+        ArrayList<Autor> autores = autorDao.listarAutores();
+
+        for (Autor autor : autores) {
             modelo.addRow(new Object[]{autor.getId(),
-            autor.getNome()});
+                autor.getNome()});
         }
         em.close();
     }
@@ -56,12 +57,15 @@ public class TelaAutor extends javax.swing.JInternalFrame {
         btnAdicionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAutores = new javax.swing.JTable();
+        btnExcluir = new javax.swing.JButton();
 
         setClosable(true);
 
         jLabel1.setText("Nome");
 
         jLabel2.setText("Id");
+
+        txtId.setEnabled(false);
 
         btnAdicionar.setText("Adicionar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +97,13 @@ public class TelaAutor extends javax.swing.JInternalFrame {
             tblAutores.getColumnModel().getColumn(0).setMaxWidth(120);
         }
 
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -100,7 +111,10 @@ public class TelaAutor extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(84, 84, 84)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdicionar)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAdicionar)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -124,7 +138,9 @@ public class TelaAutor extends javax.swing.JInternalFrame {
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addComponent(btnAdicionar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdicionar)
+                    .addComponent(btnExcluir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -144,7 +160,7 @@ public class TelaAutor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        EntityManager em =  new ConnectionFactory().getEntityManager();
+        EntityManager em = new ConnectionFactory().getEntityManager();
         String nome = txtNome.getText().toString();
         Autor autor = new Autor(nome);
         AutorDao autorDao = new AutorDao(em);
@@ -152,9 +168,29 @@ public class TelaAutor extends javax.swing.JInternalFrame {
         listarJtable();
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+
+        if (tblAutores.getSelectedRow() != -1) {
+            EntityManager em = new ConnectionFactory().getEntityManager();
+            AutorDao autorDao = new AutorDao(em);
+
+            int id = (int) tblAutores.getValueAt(tblAutores.getSelectedRow(), 0);
+
+            autorDao.deletarAutor(id);
+
+            listarJtable();
+            JOptionPane.showMessageDialog(null, "Autor excluido com sucesso");
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum autor selecionado");
+        }
+
+
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

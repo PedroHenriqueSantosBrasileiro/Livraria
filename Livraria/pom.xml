@@ -34,5 +34,6 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.6.15.Final</version>
         </dependency>   
-    </dependencies>    
+    </dependencies>
+    <name>Livraria</name>
 </project>
