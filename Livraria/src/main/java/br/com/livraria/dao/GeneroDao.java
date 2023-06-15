@@ -24,4 +24,9 @@ public class GeneroDao {
         return entityManager.createNativeQuery(sql,Genero.class).getResultList();
         
     }
+    
+    public Genero buscarGeneroPorNome(String nome){
+        String sql = "Select * from genero where nome = ?";
+        return (Genero) entityManager.createNativeQuery(sql,Genero.class).setParameter(1, nome).getSingleResult();
+    }
 }

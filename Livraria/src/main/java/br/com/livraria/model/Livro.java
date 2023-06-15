@@ -33,6 +33,11 @@ public class Livro {
         this.autor = autor;
     }
 
+    public Livro() {
+    }
+    
+    
+
     public int getId() {
         return id;
     }
