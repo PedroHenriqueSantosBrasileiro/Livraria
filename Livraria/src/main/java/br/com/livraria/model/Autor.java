@@ -16,8 +16,7 @@ public class Autor {
 
     private String nome;
 
-    public Autor(int id, String nome) {
-        this.id = id;
+    public Autor(String nome) {
         this.nome = nome;
     }
 

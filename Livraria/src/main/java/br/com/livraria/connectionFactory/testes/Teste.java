@@ -1,7 +1,9 @@
 package br.com.livraria.connectionFactory.testes;
 
 import br.com.livraria.connectionFactory.ConnectionFactory;
+import br.com.livraria.dao.AutorDao;
 import br.com.livraria.dao.GeneroDao;
+import br.com.livraria.model.Autor;
 import br.com.livraria.model.Genero;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
@@ -14,14 +16,14 @@ public class Teste {
         
         EntityManager em = new ConnectionFactory().getEntityManager();
         
-//        Genero genero = new Genero("Ficcção");
+        Autor autor = new Autor("Pedro Bandeira");
         
-        GeneroDao generoDao = new GeneroDao(em);
+        AutorDao autorDao = new AutorDao(em);
         
-        ArrayList<Genero> generos = (ArrayList<Genero>) generoDao.listarGeneros();
+        ArrayList<Autor> autores = autorDao.listarAutores();
         
-        for(Genero genero : generos){
-            System.out.println(genero.getNome());
+        for(Autor autor1: autores){
+            System.out.println(autor1.getNome());
         }
     }
 }
