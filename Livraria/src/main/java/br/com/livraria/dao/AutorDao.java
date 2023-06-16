@@ -37,4 +37,13 @@ public class AutorDao {
         em.remove(autor);
         em.getTransaction().commit();
     }
+    
+    public void atualizarAutor(int id,String nome){
+        em.getTransaction().begin();
+        Autor autor = em.find(Autor.class, id);
+        
+        autor.setNome(nome);
+        em.merge(autor);
+        em.getTransaction().commit();
+    }
 }
