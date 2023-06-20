@@ -29,4 +29,23 @@ public class GeneroDao {
         String sql = "Select * from genero where nome = ?";
         return (Genero) entityManager.createNativeQuery(sql,Genero.class).setParameter(1, nome).getSingleResult();
     }
+    
+    public void excluirGenero(int id){
+        entityManager.getTransaction().begin();
+        Genero genero = entityManager.find(Genero.class, id);
+        entityManager.remove(genero);
+        entityManager.getTransaction().commit();
+        
+    }
+    
+    public void editarGenero(int id ,String nome){
+        entityManager.getTransaction().begin();
+        Genero genero = entityManager.find(Genero.class, id);
+        genero.setNome(nome);
+        
+        entityManager.merge(genero);
+        
+        entityManager.getTransaction().commit();
+        
+    }
 }

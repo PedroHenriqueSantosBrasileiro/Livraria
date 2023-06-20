@@ -207,6 +207,8 @@ public class TelaAutor extends javax.swing.JInternalFrame {
         if(tblAutores.getSelectedRow() != -1){
             EntityManager em = new ConnectionFactory().getEntityManager();
             AutorDao autorDao = new AutorDao(em);
+            
+            
             autorDao.atualizarAutor(Integer.parseInt(tblAutores.getValueAt(tblAutores.getSelectedRow(), 0).toString()), txtNome.getText().toString());
             JOptionPane.showMessageDialog(null, "Autor atualizado com sucesso");
             deixaCamposEmBranco();
