@@ -150,6 +150,11 @@ public class TelaLivro extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblLivro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLivroMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblLivro);
         if (tblLivro.getColumnModel().getColumnCount() > 0) {
             tblLivro.getColumnModel().getColumn(0).setMinWidth(50);
@@ -275,7 +280,8 @@ public class TelaLivro extends javax.swing.JInternalFrame {
        iniciaAutorDao();
        
        String nome = txtNome.getText();
-       double preco = Double.parseDouble(txtPreco.getText());
+       
+       double preco = Double.parseDouble (txtPreco.getText().replace(",", "."));
        int quantidade = Integer.parseInt(txtQuantidade.getText());
        String descricao = txtDescricao.getText();
        Autor autor = autorDao.buscarAutorPorNome((String) comboBoxAutor.getSelectedItem());
@@ -300,6 +306,17 @@ public class TelaLivro extends javax.swing.JInternalFrame {
         em.close();
         
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void tblLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLivroMouseClicked
+        if(tblLivro.getSelectedRow() != -1){
+            txtNome.setText((String) tblLivro.getValueAt(tblLivro.getSelectedRow(), 1));
+            txtDescricao.setText((String) tblLivro.getValueAt(tblLivro.getSelectedRow(), 2));
+            comboBoxAutor.setSelectedItem(tblLivro.getValueAt(tblLivro.getSelectedRow(), 3));
+            comboBoxGenero.setSelectedItem(tblLivro.getValueAt(tblLivro.getSelectedRow(), 4));
+            txtQuantidade.setText(String.valueOf(tblLivro.getValueAt(tblLivro.getSelectedRow(), 5)));
+            txtPreco.setText((String) tblLivro.getValueAt(tblLivro.getSelectedRow(), 6));
+        }
+    }//GEN-LAST:event_tblLivroMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
