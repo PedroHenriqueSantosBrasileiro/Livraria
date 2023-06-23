@@ -25,4 +25,12 @@ public class LivroDao {
         return (ArrayList<Livro>) em.createNativeQuery(sql,Livro.class).getResultList();
     }
     
+    public void excluirLivro(int id){
+        em.getTransaction().begin();
+        Livro livro = em.find(Livro.class, id);
+        em.remove(livro);
+        em.getTransaction().commit();
+        
+    }
+    
 }
